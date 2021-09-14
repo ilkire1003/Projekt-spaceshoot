@@ -1,0 +1,87 @@
+  
+Player player;
+
+void setup() {
+  fullScreen();
+  background(255);
+  player = new Player();
+}
+
+void draw() {
+  background(255);
+  fill(0);
+  noStroke();
+  player.display();
+  player.update();
+  customKeyPressed();
+  handleBorder();  
+}
+
+void handleBorder(){
+ 
+  if( player.getLeftCornerX() < 0) {     
+  player.velX = 0;
+  
+  }
+  
+  if( player.getRightCornerX() > width) {
+  player.velX = 0;
+  
+  }
+}
+
+
+
+
+void customKeyPressed() {
+
+  player.addForce(0);
+  if(!keyPressed)return;
+  
+ if (keyCode == LEFT) {
+   player.addForce(-.01);
+   
+ } 
+ if (keyCode == RIGHT) {
+   player.addForce(.01);
+   
+ }
+
+}
+
+class Player{
+
+  PVector playerPos;
+  float playerWidth = 80;
+  float accX = 0, velX =0;
+
+  
+  Player(){
+      playerPos = new PVector(width/2, height*14/16);
+  
+  }
+  
+  float getLeftCornerX(){
+    return playerPos.x - playerWidth/2;  
+  }
+  
+  float getRightCornerX(){
+    return playerPos.x + playerWidth/2;
+  }
+  
+  void addForce(float acc){
+    accX = acc;
+  }
+  
+  void update(){
+      velX += accX;
+      playerPos.x = playerPos.x + velX;
+      velX *= 1;
+  }
+  
+  void display(){
+      triangle(playerPos.x, playerPos.y, playerPos.x - playerWidth/2, playerPos.y + 80, playerPos.x + playerWidth/2, playerPos.y + 80);
+  }
+  
+  
+}
