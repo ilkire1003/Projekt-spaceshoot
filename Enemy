@@ -1,0 +1,39 @@
+class Enemy{
+  PVector enemyPos;
+  PVector speed;
+  PVector acceleration;
+  float topspeed = 7;
+
+  
+  Enemy(){
+  enemyPos = new PVector (500,height*0.25);  
+  acceleration = new PVector(-1,0);
+  speed = new PVector(0,0);
+  }
+  
+  
+  
+
+
+void display(){
+  fill(255);
+  rect(enemyPos.x,enemyPos.y,30,30);
+}
+
+void movement(){
+
+  acceleration.normalize();
+   acceleration.mult(0.5);
+   speed.add(acceleration);
+   speed.limit(topspeed);
+   enemyPos.add(speed);
+  
+  if(enemyPos.x > width - 100 || enemyPos.x < 0 + 100){
+  speed.mult(-1);
+  acceleration.mult(-1);
+  }
+  
+}
+
+
+}
